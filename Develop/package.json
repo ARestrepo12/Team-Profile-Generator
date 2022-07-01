@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/ARestrepo12/Team-Profile-Generator#readme",
   "dependencies": {
-    "inquirer": "^9.0.0"
+    "inquirer": "^8.2.4"
   }
 }
