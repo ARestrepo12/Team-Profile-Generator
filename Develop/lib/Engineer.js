@@ -1,11 +1,14 @@
-const { Employee } = require('./Employee')
+const Employee = require('./Employee')
 
-function Engineer(name, email) {
-    this.employeeInfo = new Employee(name, email, "engineer");
+class Engineer extends Employee {
+    constructor(name, email, id, github) {
+        super(name, email, id)
+        this.github = github
+    }
+
+    getRole() { return "Engineer" } 
+    GetGithub() {return this.github}
 }
 
-console.log(new Engineer());
 
-module.exports = {
-    Engineer
-}
+module.exports = Engineer

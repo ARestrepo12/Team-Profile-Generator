@@ -11,6 +11,19 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require('./lib/htmlRenderer');
 
+function createTeam() {
+    return inquirer.prompt([{
+        type: "list",
+        name: "choose employee role:",
+        choices: [
+            "Manager",
+            "Engineer",
+            "Intern",
+            "I don't want to add another employee."
+        ]
+    }])
+}
+
 function createManager() {
     return inquirer.prompt([{
         type: "input",
@@ -19,7 +32,7 @@ function createManager() {
     },
     {
         type: "input",
-        name: "managerIDnumber",
+        name: "ManagerIDnumber",
         message: "What is your manager's ID number?"
     },
     {
@@ -32,14 +45,18 @@ function createManager() {
         name: "ManagerOfficeNumber",
         message: "What is your manager's office number?"
     },
-])
+]).then(answers => {
+    const manager = new Manager(answers.ManagerName, answers.managerIDNumber, answers.ManagerEmail, answers.ManagerOfficeNumber)
+    Team.push(manager)
+    createTeam();
+})
 }
 
-function createEmployee()
+function createEmployee() {}
 
-function createEngineer()
+function createEngineer() {}
 
-function createIntern()
+function createIntern() {}
 
 console.log("Enter the managers info")
 createManager();
