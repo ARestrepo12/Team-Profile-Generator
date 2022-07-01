@@ -1,4 +1,4 @@
-const Employee = require('./lib/Employee')
+const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -12,15 +12,11 @@ const OUTPUT_DIR = path.resolve(__dirname, 'output');
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require('./lib/htmlRenderer');
+const Choice = require('inquirer/lib/objects/choice');
 
 
-const employeeType = {
-    type: 'list',
-    message: 'Choose the employees role:',
-    name: ['Manager', 'Engineer', 'Intern']
-}
 
-const buildTeam = {
+const teamMembers = {
     Manager: [{
         type: "input",
         name: "managerName",
@@ -88,4 +84,30 @@ const buildTeam = {
 ]
 }
 
-console.log(buildTeam)
+const addNew = {
+    type: 'List',
+    message: 'Do you wnat to add another employee?',
+    name: 'addMember',
+    choices: ['Yes', 'No'],
+}
+
+console.log(teamMembers)
+
+function createTeam() {
+    inquirer.prompt([{
+        type: 'list',
+        message: 'Choose the employees role:',
+        name: 'employeeChoice',
+        choices: ['Manager', 'Engineer', 'Intern',]
+    }]).then((answer) => {
+        if (answer.employeeChoice === 'Manager') {
+            inquirer.prompt(teamMembers.Manager)
+        }
+        if (answer.employeeChoice === 'Engineer') {
+            inquirer.prompt(teamMembers.Engineer)
+        }
+        if (answer.employeeChoice === 'Intern') {
+            inquirer.prompt(teamMembers.Intern)
+        }
+    })
+}
