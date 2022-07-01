@@ -5,62 +5,87 @@ const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
-const Team = []
+
+let Team = []
+
 const OUTPUT_DIR = path.resolver(__dirname, 'output');
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require('./lib/htmlRenderer');
 
-function createTeam() {
-    return inquirer.prompt([{
-        type: "list",
-        name: "choose employee role:",
-        choices: [
-            "Manager",
-            "Engineer",
-            "Intern",
-            "I don't want to add another employee."
-        ]
-    }])
+
+const employeeType = {
+    type: 'list',
+    message: 'Choose the employees role:',
+    name: ['Manager', 'Engineer', 'Intern']
 }
 
-function createManager() {
-    return inquirer.prompt([{
+const buildTeam = {
+    Manager: [{
         type: "input",
-        name: "ManagerName",
+        name: "managerName",
         message: "What is your manager's name?"
     },
     {
         type: "input",
-        name: "ManagerIDnumber",
+        name: "managerId",
         message: "What is your manager's ID number?"
     },
     {
         type: "input",
-        name: "ManagerEmail",
+        name: "managerEmail",
         message: "What is your manager's email?"
     },
     {
         type: "input",
-        name: "ManagerOfficeNumber",
+        name: "officeNumber",
         message: "What is your manager's office number?"
+    }
+],
+
+    Engineer: [{
+        type: "input",
+        message: "What is the engineer's name?",
+        name: "engineerName"
     },
-]).then(answers => {
-    const manager = new Manager(answers.ManagerName, answers.managerIDNumber, answers.ManagerEmail, answers.ManagerOfficeNumber)
-    Team.push(manager)
-    createTeam();
-})
+    {
+        type: "input",
+        message: "What is the engineer's id?",
+        name: "engineerId"
+    },
+    {
+        type: "input",
+        message: "What is the engineer's email?",
+        name: "engineerEmail"
+    },
+    {
+        type: "input",
+        message: "What is the engineer's Github username?",
+        name: "Github"
+    }
+],
+
+    Intern: [{
+        type: "input",
+        message: "What is the intern's name?",
+        name: "employeeName"
+    },
+    {
+        type: "input",
+        message: "What is the intern's id?",
+        name: "employeeId"
+    },
+    {
+        type: "input",
+        message: "What is the intern's email?",
+        name: "internEmail"
+    },
+    {
+        type: "input",
+        message: "What is the intern's school?",
+        name: "school"
+    }
+]
 }
 
-function createEmployee() {}
-
-function createEngineer() {}
-
-function createIntern() {}
-
-console.log("Enter the managers info")
-createManager();
-
-
-console.log("hello")
-
+console.log(buildTeam)
