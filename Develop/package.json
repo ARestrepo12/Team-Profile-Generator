@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/ARestrepo12/Team-Profile-Generator#readme",
   "dependencies": {
-    "inquirer": "^8.2.4"
+    "axios": "^0.20.0",
+    "fs": "0.0.1-security",
+    "inquirer": "^6.5.2",
+    "path": "^0.12.7",
+    "promisify": "0.0.3"
   }
 }
