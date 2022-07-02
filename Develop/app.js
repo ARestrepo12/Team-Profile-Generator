@@ -91,7 +91,7 @@ const addNew = {
     choices: ['Yes', 'No'],
 }
 
-console.log(teamMembers)
+
 
 function createTeam() {
     inquirer.prompt([{
@@ -111,3 +111,5 @@ function createTeam() {
         }
     })
 }
+
+createTeam();
