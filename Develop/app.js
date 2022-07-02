@@ -12,8 +12,9 @@ const OUTPUT_DIR = path.resolve(__dirname, 'output');
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require('./lib/htmlRenderer');
-const Choice = require('inquirer/lib/objects/choice');
 
+
+var managerCounter = 0;
 
 
 const teamMembers = {
@@ -84,6 +85,17 @@ const teamMembers = {
 ]
 }
 
+function Start() {
+    inquirer.prompt(addNew).then((answer) => {
+        if (answer.addMember == "Yes") {
+            addRole();
+        } else {
+            fs.writeFileSync(outputPath, render(Team), "utf-8");
+            process.exit(0);
+        }
+    })
+}
+
 const addNew = {
     type: 'List',
     message: 'Do you wnat to add another employee?',
@@ -93,23 +105,39 @@ const addNew = {
 
 
 
-function createTeam() {
+function addRole() {
     inquirer.prompt([{
         type: 'list',
         message: 'Choose the employees role:',
         name: 'employeeChoice',
         choices: ['Manager', 'Engineer', 'Intern',]
     }]).then((answer) => {
-        if (answer.employeeChoice === 'Manager') {
-            inquirer.prompt(teamMembers.Manager)
-        }
-        if (answer.employeeChoice === 'Engineer') {
-            inquirer.prompt(teamMembers.Engineer)
-        }
-        if (answer.employeeChoice === 'Intern') {
-            inquirer.prompt(teamMembers.Intern)
-        }
-    })
+        if (answer.employeeChoice === 'Manager && managerCounter < 1') {
+            managerCounter++
+            inquirer.prompt(teamMembers.Manager).then((results) => {
+                const manager = new Manager(results.managerName, results.managerId, results.managerEmail, results.managerOfficeNumber);
+                Team.push(manager);
+                Start();
+            })
+            
+        } else if (answer.employeeChoice === "Engineer") {
+            inquirer.prompt(teamMembers.Engineer).then((results) => {
+                const engineer = new Manager(results.managerName, results.managerId, results.managerEmail, results.managerOfficeNumber);
+                Team.push(engineer);
+                Start();
+            })
+    
+        } else if (answer.employeeChoice === "Intern") {
+            inquirer.prompt(teamMembers.Intern).then((results) => {
+                const intern = new Manager(results.managerName, results.managerId, results.managerEmail, results.managerOfficeNumber);
+                Team.push(intern);
+                Start();
+            })
+    
+    } else {
+        Start();
+    }
+})
 }
 
-createTeam();
+Start();
