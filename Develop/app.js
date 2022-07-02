@@ -65,12 +65,12 @@ const teamMembers = {
     Intern: [{
         type: "input",
         message: "What is the intern's name?",
-        name: "employeeName"
+        name: "internName"
     },
     {
         type: "input",
         message: "What is the intern's id?",
-        name: "employeeId"
+        name: "internId"
     },
     {
         type: "input",
@@ -84,6 +84,7 @@ const teamMembers = {
     }
 ]
 }
+
 
 function Start() {
     inquirer.prompt(addNew).then((answer) => {
@@ -112,24 +113,24 @@ function addRole() {
         name: 'employeeChoice',
         choices: ['Manager', 'Engineer', 'Intern',]
     }]).then((answer) => {
-        if (answer.employeeChoice === 'Manager && managerCounter < 1') {
+        if (answer.employeeChoice === 'Manager' && managerCounter < 1) {
             managerCounter++
             inquirer.prompt(teamMembers.Manager).then((results) => {
-                const manager = new Manager(results.managerName, results.managerId, results.managerEmail, results.managerOfficeNumber);
+                const manager = new Manager(results.managerName, results.managerId, results.managerEmail, results.OfficeNumber);
                 Team.push(manager);
                 Start();
             })
             
         } else if (answer.employeeChoice === "Engineer") {
             inquirer.prompt(teamMembers.Engineer).then((results) => {
-                const engineer = new Manager(results.managerName, results.managerId, results.managerEmail, results.managerOfficeNumber);
+                const engineer = new Engineer(results.engineerName, results.engineerId, results.engineerEmail, results.Github);
                 Team.push(engineer);
                 Start();
             })
     
         } else if (answer.employeeChoice === "Intern") {
             inquirer.prompt(teamMembers.Intern).then((results) => {
-                const intern = new Manager(results.managerName, results.managerId, results.managerEmail, results.managerOfficeNumber);
+                const intern = new Intern(results.internName, results.internId, results.internEmail, results.school);
                 Team.push(intern);
                 Start();
             })

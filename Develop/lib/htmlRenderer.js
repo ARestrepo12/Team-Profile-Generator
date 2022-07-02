@@ -16,7 +16,7 @@ const render = employees => {
     );
     html.push(employees
         .filter(employee => employee.getRole() === 'Intern')
-        .map(Intern => renderIntern(intern))
+        .map(intern => renderIntern(intern))
     );
 
     return renderMain(html.join(''));
@@ -58,8 +58,8 @@ const renderMain = html => {
 };
 
 const replacePlaceholders = (template, placeholder, value) => {
-    const pattern = new RegExp('{{"+ placeholder +"}}', 'gm');
-    return template.replace(pattern.value);
+    const pattern = new RegExp("{{"+ placeholder +"}}", "gm");
+    return template.replace(pattern, value);
 };
 
 module.exports = render;

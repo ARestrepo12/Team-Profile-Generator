@@ -5,7 +5,7 @@ class Employee {
         this.email = email;
     }
     getName() {return this.name}
-    getID() {return this.id}
+    getId() {return this.id}
     getEmail() {return this.email}
     getRole() {return Employee}
 

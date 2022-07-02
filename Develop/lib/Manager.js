@@ -7,7 +7,7 @@ class Manager extends Employee {
     }
 
     getRole() { return "Manger" } 
-    GetOfficeNumber() {return this.officeNumber}
+    getOfficeNumber() {return this.officeNumber}
 }
 
 
