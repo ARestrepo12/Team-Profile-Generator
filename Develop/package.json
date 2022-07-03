@@ -23,6 +23,7 @@
     "axios": "^0.20.0",
     "fs": "0.0.1-security",
     "inquirer": "^6.5.2",
+    "jest": "^28.1.2",
     "path": "^0.12.7",
     "promisify": "0.0.3"
   }
